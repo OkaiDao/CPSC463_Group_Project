@@ -25,6 +25,7 @@ class Hotel {
 
         public double getTotalCharge() {
             //TODO Calculate total charge
+            return 0;
         }
 
         public double getBalance() {

@@ -32,6 +32,28 @@ public class Main {
             scanner.nextLine();
         }
     }
+    
+    //Capability 2 Reservation List
+    //Jonathan Dao
+    private static void printReservation_List() 
+  	{
+  		int counter = 1;
+  		while (counter < 100)
+  		{
+  			System.out.println("Room " + counter + "			");
+  			int day = 1;
+  			while (day < 7)
+  			{
+  				System.out.println("Day " + day );
+  				//Logic for finding if there is an existing guest
+  			//If there is a guest pull name and output
+  				day = day + 1;
+
+  			}
+  			counter = counter + 1;
+  		}
+  	
+  	}
 
     private static void performOperation(int selectedOption) {
         switch (selectedOption) {

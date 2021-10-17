@@ -33,6 +33,24 @@ public class Main {
         }
     }
     
+    //Capbility 1 Room List
+    //Jonathan Dao
+    //Note: List is vertical from 1-100 due to consle app implementation
+    private static void printRoom_Status()
+    {
+    	int x = 0;
+    	int roomNum = 0;
+    	while (x < 100)
+    	{
+    		    			
+    		System.out.println("Room " + (x + 1) + "\n"); 
+    		System.out.println("Room Type: " + "\n"); //Add function to pull room type and add to output.
+    		System.out.println("Availability: " + "\n"); //Add function to pull room type and add to output.
+    		x = x+1;
+    	}
+    		
+    }
+    
     //Capability 2 Reservation List
     //Jonathan Dao
     private static void printReservation_List() 
@@ -52,6 +70,7 @@ public class Main {
   			}
   			counter = counter + 1;
   		}
+  		scanner.nextLine();
   	
   	}
 

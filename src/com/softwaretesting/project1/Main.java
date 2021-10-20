@@ -70,12 +70,16 @@ public class Main {
   			}
   			counter = counter + 1;
   		}
-  		scanner.nextLine();
+  		System.out.println("\n");
   	
   	}
 
     private static void performOperation(int selectedOption) {
         switch (selectedOption) {
+        	case 1: 
+        		printRoom_Status();
+        	case 2:
+        		printReservation_list();
             case 3:
                 thirdCapabilityOperation();
                 break;
@@ -111,6 +115,10 @@ public class Main {
 
     private static String getCapabilityOption(int option) {
         switch (option) {
+        	case 1:
+        		return "Show list of all rooms.";
+        	case 2:
+        		return "Show list of all rooms with their reserveations for the next 7 days.";
             case 3:
                 return "Display a list of all reservations currently in the system";
             case 4:

@@ -32,9 +32,54 @@ public class Main {
             scanner.nextLine();
         }
     }
+    
+    //Capbility 1 Room List
+    //Jonathan Dao
+    //Note: List is vertical from 1-100 due to consle app implementation
+    private static void printRoom_Status()
+    {
+    	int x = 0;
+    	int roomNum = 0;
+    	while (x < 100)
+    	{
+    		    			
+    		System.out.println("Room " + (x + 1) + "\n"); 
+    		System.out.println("Room Type: " + "\n"); //Add function to pull room type and add to output.
+    		System.out.println("Availability: " + "\n"); //Add function to pull room type and add to output.
+    		x = x+1;
+    	}
+    		
+    }
+    
+    //Capability 2 Reservation List
+    //Jonathan Dao
+    private static void printReservation_List() 
+  	{
+  		int counter = 1;
+  		while (counter < 100)
+  		{
+  			System.out.println("Room " + counter + "			");
+  			int day = 1;
+  			while (day < 7)
+  			{
+  				System.out.println("Day " + day );
+  				//Logic for finding if there is an existing guest
+  			//If there is a guest pull name and output
+  				day = day + 1;
+
+  			}
+  			counter = counter + 1;
+  		}
+  		System.out.println("\n");
+  	
+  	}
 
     private static void performOperation(int selectedOption) {
         switch (selectedOption) {
+        	case 1: 
+        		printRoom_Status();
+        	case 2:
+        		printReservation_list();
             case 3:
                 thirdCapabilityOperation();
                 break;
@@ -70,6 +115,10 @@ public class Main {
 
     private static String getCapabilityOption(int option) {
         switch (option) {
+        	case 1:
+        		return "Show list of all rooms.";
+        	case 2:
+        		return "Show list of all rooms with their reserveations for the next 7 days.";
             case 3:
                 return "Display a list of all reservations currently in the system";
             case 4:

@@ -85,6 +85,11 @@ public class Main {
                 break;
             case 4:
                 fourthCapabilityOperation();
+            case 5:
+                showGuestInfo();
+                break;
+            case 8:
+                showDailyReport();
         }
     }
 
@@ -112,6 +117,31 @@ public class Main {
                 "Rate ($/Day):\n" +
                 "Total Charge:\n");
     }
+    
+    //Capability 5 - A guest profile screen to show guest information
+    //Christopher Ordinario
+    private static void showGuestInfo() {
+        System.out.println("First Name: \n" +
+            "Last Name: \n" +
+            "Phone: \n" +
+            "Address: \n" + 
+            "E-mail: \n" +
+            "State: \n" +
+            "ID#: \n" +
+            "Vehicle License Plate: \n");
+    }
+
+    //Capability 8 - A daily report screen
+    //Christopher Ordinario
+    private static void showDailyReport(){
+        System.out.println("Rooms rented today: \n" +
+            "Room Number: \n" +
+            "Guest Name: \n" +
+            "Date In: \n" +
+            "Date Out: \n" +
+            "Amount Paid: \n" +
+            "Total Amount Paid For All Rooms: \n");
+    }
 
     private static String getCapabilityOption(int option) {
         switch (option) {
@@ -123,6 +153,10 @@ public class Main {
                 return "Display a list of all reservations currently in the system";
             case 4:
                 return "Display housekeeping information";
+            case 5:
+                return "show guest information";
+            case 8:
+                return "show the daily report screen";
             default:
                 return "exit";
         }

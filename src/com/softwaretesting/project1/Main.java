@@ -78,16 +78,25 @@ public class Main {
         switch (selectedOption) {
         	case 1: 
         		printRoom_Status();
+        		break;
         	case 2:
-        		printReservation_list();
+        		printReservation_List();
+        		break;
             case 3:
                 thirdCapabilityOperation();
                 break;
             case 4:
                 fourthCapabilityOperation();
+                break;
             case 5:
                 showGuestInfo();
                 break;
+            case 6:
+            	currentGuestInfo();
+            	break;
+            case 7:
+            	searchScreen();
+            	break;
             case 8:
                 showDailyReport();
         }
@@ -130,7 +139,35 @@ public class Main {
             "ID#: \n" +
             "Vehicle License Plate: \n");
     }
-
+    //Capability 6 - Current stay screen showing a guest’s information for their current stay.
+    //Tuan Ngo
+    private static void currentGuestInfo() {
+    	System.out.println(
+    			"Guest Name: \n" +
+                "Date Check-in:\n" +
+                "Time Check In:\n" +
+                "Expected Checkout Date:\n" +
+                "Exptected Check Out Time:\n" +
+                "Room Type:\n" +
+                "Room Number:\n" +
+                "Rate ($/Day):\n" +
+                "Payment Made:\n" +
+                "Balance:\n" +
+                "Total Charge:\n");
+    }
+    //Capability 7: A search screen to search for guests
+    //Tuan Ngo
+    private static void searchScreen() {
+    	System.out.println(
+    			"1. Search By Guest First Name\n" +
+                "2. Search By Guest Last Name:\n" +
+                "3. Search By Room Number:\n" +
+                "4. Search By Phone Number:\n" +
+                "5. Search By Street Address:\n" +
+                "6. Search By Date Check In :\n" +
+                "7. Search by Date Check Out:\n"
+    	);
+    }
     //Capability 8 - A daily report screen
     //Christopher Ordinario
     private static void showDailyReport(){
@@ -155,6 +192,10 @@ public class Main {
                 return "Display housekeeping information";
             case 5:
                 return "show guest information";
+            case 6:
+            	return "Show a Guest's information";
+            case 7:
+            	return "Search for guests";
             case 8:
                 return "show the daily report screen";
             default:

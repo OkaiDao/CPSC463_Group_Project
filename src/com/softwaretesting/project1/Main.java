@@ -83,10 +83,10 @@ public class Main {
         		printReservation_List();
         		break;
             case 3:
-                thirdCapabilityOperation();
+                displayReservations();
                 break;
             case 4:
-                fourthCapabilityOperation();
+                displayHousekeepingInformation();
                 break;
             case 5:
                 showGuestInfo();
@@ -102,7 +102,23 @@ public class Main {
         }
     }
 
-    private static void fourthCapabilityOperation() {
+    //Capability 3 Reservation list
+    //Sijan Rijal
+    private static void displayReservations() {
+        System.out.println("Guest First Name: \n" +
+                "Guest Last Name: \n" +
+                "Date Made:\n" +
+                "Date Check-in:\n" +
+                "Date Checkout:\n" +
+                "Room Type:\n" +
+                "Website Reservation Made:\n" +
+                "Rate ($/Day):\n" +
+                "Total Charge:\n");
+    }
+
+    //Capability 4 Housekeeping information
+    //Sijan Rijal
+    private static void displayHousekeepingInformation() {
         System.out.println("Housekeep Name:\n" +
                 "Room number:\n" +
                 "Type:\n" +
@@ -113,18 +129,6 @@ public class Main {
                 "Vacuum:\n" +
                 "Dusting:\n" +
                 "Electronics:\n");
-    }
-
-    private static void thirdCapabilityOperation() {
-        System.out.println("Guest First Name: \n" +
-                "Guest Last Name: \n" +
-                "Date Made:\n" +
-                "Date Check-in:\n" +
-                "Date Checkout:\n" +
-                "Room Type:\n" +
-                "Website Reservation Made:\n" +
-                "Rate ($/Day):\n" +
-                "Total Charge:\n");
     }
     
     //Capability 5 - A guest profile screen to show guest information

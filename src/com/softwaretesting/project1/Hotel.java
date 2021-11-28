@@ -4,9 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-class Hotel {
+public class Hotel {
 
-    private Map<Integer,Room> rooms = new HashMap<>();
+    private Map<Integer, Room> rooms = new HashMap<>();
 
     public void addRoom(Room room) {
         rooms.putIfAbsent(room.roomNumber, room);
@@ -20,7 +20,7 @@ class Hotel {
         return new ArrayList<>(rooms.values());
     }
 
-    class Room {
+    public class Room {
         private RoomType roomType;
         private RoomStatus roomStatus;
         private int roomNumber;
@@ -40,9 +40,22 @@ class Hotel {
         public void removeFromReservation(Reservation reservation) {
             this.reservation.remove(reservation);
         }
+
+        public void updateReservation(Reservation oldReservation, Reservation newReservation) {
+            reservation.remove(oldReservation);
+            reservation.add(newReservation);
+        }
+
+        public List<Reservation> getReservations() {
+            return reservation;
+        }
+
+        public RoomStatus getRoomStatus() {
+            return roomStatus;
+        }
     }
 
-    class Reservation {
+    public class Reservation {
         private Guest guest;
         private Date dateMade;
         private Date dateCheckIn;
@@ -51,6 +64,7 @@ class Hotel {
         private Room room;
         private boolean websiteReservation;
         private double paymentsMade;
+        private boolean isCheckedIn;
 
         //Date check in and check out should be a string in the form "MM-dd-yyyy"
         public Reservation(Guest guest, String dateCheckIn, String dateCheckout, double rate, Room room, boolean websiteReservation, double paymentsMade) {
@@ -64,9 +78,71 @@ class Hotel {
                 this.room = room;
                 this.websiteReservation = websiteReservation;
                 this.paymentsMade = paymentsMade;
+                isCheckedIn = false;
             } catch (ParseException e) {
                 System.out.println("Failed to create reservation. Please enter date in the correct format");
             }
+        }
+
+        //Date check in and check out should be a string in the form "MM-dd-yyyy"
+        public Reservation(Guest guest, Date dateCheckIn, Date dateCheckout, double rate, Room room, boolean websiteReservation, double paymentsMade) {
+            this.dateCheckIn = dateCheckIn;
+            this.dateCheckout = dateCheckout;
+            this.guest = guest;
+            this.dateMade = new Date();
+            this.rate = rate;
+            this.room = room;
+            this.websiteReservation = websiteReservation;
+            this.paymentsMade = paymentsMade;
+            isCheckedIn = false;
+        }
+
+        public Date getDateCheckIn() {
+            return dateCheckIn;
+        }
+
+        public Date getDateCheckout() {
+            return dateCheckout;
+        }
+
+        public Guest getGuest() {
+            return guest;
+        }
+
+        public void setGuest(Guest guest) {
+            this.guest = guest;
+        }
+
+        public Date getDateMade() {
+            return dateMade;
+        }
+
+        public void setDateMade(Date dateMade) {
+            this.dateMade = dateMade;
+        }
+
+        public boolean isCheckedIn() {
+            return isCheckedIn;
+        }
+
+        public void setCheckedIn(boolean checkedIn) {
+            isCheckedIn = checkedIn;
+        }
+
+        public Room getRoom() {
+            return room;
+        }
+
+        public double getRate() {
+            return rate;
+        }
+
+        public boolean isWebsiteReservation() {
+            return websiteReservation;
+        }
+
+        public double getPaymentsMade() {
+            return paymentsMade;
         }
 
         public double getTotalCharge() {
@@ -88,7 +164,7 @@ class Hotel {
         private boolean electronics;
     }
 
-    class Guest {
+    public class Guest {
         private String firstName;
         private String lastName;
         private String phoneNumber;
@@ -96,19 +172,26 @@ class Hotel {
         private String email;
         private String idNumber;
         private String licensePlate;
+
+        public Guest(String firstName, String lastName, String phoneNumber, String address, String email, String idNumber, String licensePlate) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.phoneNumber = phoneNumber;
+            this.address = address;
+            this.email = email;
+            this.idNumber = idNumber;
+            this.licensePlate = licensePlate;
+        }
+
+        public String getIdNumber() {
+            return idNumber;
+        }
     }
 }
 
-enum  RoomType {
+enum RoomType {
     KING,
     DOUBLE_QUEEN,
     DOUBLE_QUEEN_WITH_KITCHEN,
     SUITE
-}
-
-enum RoomStatus {
-    AVAILABLE,
-    UNAVAILABLE_OCCUPIED,
-    UNAVAILABLE_DIRTY,
-    UNAVAILABLE_MAINTENANCE
 }

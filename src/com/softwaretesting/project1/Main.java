@@ -7,7 +7,7 @@ public class Main {
 
     private static final int TOTAL_CAPABILITIES = 8;
     private static final Scanner scanner = new Scanner(System.in);
-    private static Hotel hotel = new Hotel();
+    private static final Hotel hotel = new Hotel();
 
     public static void main(String[] args) {
         printCapabilitiesOptions();
@@ -106,15 +106,7 @@ public class Main {
     //Capability 3 Reservation list
     //Sijan Rijal
     private static void displayReservations() {
-        System.out.println("Guest First Name: \n" +
-                "Guest Last Name: \n" +
-                "Date Made:\n" +
-                "Date Check-in:\n" +
-                "Date Checkout:\n" +
-                "Room Type:\n" +
-                "Website Reservation Made:\n" +
-                "Rate ($/Day):\n" +
-                "Total Charge:\n");
+
     }
 
     //Capability 4 Housekeeping information

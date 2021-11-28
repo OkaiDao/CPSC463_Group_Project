@@ -6,7 +6,7 @@ import java.util.*;
 
 class Hotel {
 
-    Map<Integer,Room> rooms = new HashMap<>();
+    private Map<Integer,Room> rooms = new HashMap<>();
 
     public void addRoom(Room room) {
         rooms.putIfAbsent(room.roomNumber, room);

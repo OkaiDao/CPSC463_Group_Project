@@ -7,6 +7,7 @@ public class Main {
 
     private static final int TOTAL_CAPABILITIES = 8;
     private static final Scanner scanner = new Scanner(System.in);
+    private static Hotel hotel = new Hotel();
 
     public static void main(String[] args) {
         printCapabilitiesOptions();

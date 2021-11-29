@@ -9,6 +9,7 @@ import java.util.*;
 public class Hotel {
 
     private final Map<Integer, Room> rooms = new HashMap<>();
+    private ArrayList<Reservation> guesthistory = new ArrayList<Reservation>();
 
     public void addRoom(Room room) {
         rooms.putIfAbsent(room.roomNumber, room);
@@ -25,7 +26,11 @@ public class Hotel {
     public Map<Integer, Room> getRoomsMap() {
         return rooms;
     }
-
+    
+    public ArrayList<Reservation> getGuestHistory(){
+    	return new ArrayList<>(guesthistory);
+    }
+    
     public class Room {
         private RoomType roomType;
         private RoomStatus roomStatus;

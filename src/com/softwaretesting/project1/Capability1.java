@@ -51,8 +51,9 @@ public class Capability1
 						{
 							System.out.println("Room is occupied");
 							//Capability 6 function call
-							//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Needs to be checked for Integration @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@					
-							currentGuestInfo_guest(hotel, guest, choice);
+							//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Needs to be checked for Integration @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+							room.
+							currentGuestInfo_guest(hotel, guest, room);
 						}
 						if (room.getRoomStatus() == RoomStatus.UNAVAILABLE_DIRTY)// If Dirty
 						{
@@ -73,7 +74,7 @@ public class Capability1
 					{
 						//Capability 6 function call
 						//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Needs to be checked for Integration @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-						currentGuestInfo_noguest(hotel, choice);
+						currentGuestInfo_noguest(hotel, room);
 					}
 				}//EO else
 				System.out.flush();

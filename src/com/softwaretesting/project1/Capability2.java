@@ -58,7 +58,7 @@ public class Capability2
 	        		{
 	        			//Capability 6 function call
 						//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Needs to be checked for Integration @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-						currentGuestInfo_noguest(hotel, choice);
+						currentGuestInfo_noguest(hotel, room);
 	        		}	
 				}//EO else
 			}//EO else

@@ -1,102 +1,266 @@
 package com.softwaretesting.project1;
 
-import java.util.ArrayList;
+//import com.softwaretesting.project1.capability3.Capability3;
 
-class Hotel {
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
-    private ArrayList<Room> rooms;
-    //Assumes that Type1 + 2 + 3 are < 100
-    private Hotel(int Type1, int Type2, int Type3)
-    {
-    	int roomIt = 0;
-    	RoomType roomType;
-    	RoomStatus roomStat;
-    	
-    	if (Type1 + Type2 + Type3 > 100)
-    	{
-    		System.out.println("Failed to create rooms list." + "\n");
-    		return;
-    	}
-    	
-    	while (roomIt < 100)
-    	{
-    		if(roomIt<Type1)
-    		{
-    			roomType = RoomType.KING;
-    			roomStat = RoomStatus.AVAILABLE;
-    		}
-    		else if(roomIt<(Type1+Type2))
-    		{
-    			roomType = RoomType.DOUBLE_QUEEN;
-    			roomStat = RoomStatus.AVAILABLE;
-    		}
-    		else if(roomIt<(Type1+Type2+Type3))
-    		{
-    			roomType = RoomType.DOUBLE_QUEEN_WITH_KITCHEN;
-    			roomStat = RoomStatus.AVAILABLE;
-    		}
-    		else
-    		{
-    			roomType = RoomType.SUITE;
-    			roomStat = RoomStatus.AVAILABLE;
-    		}
-    		Room tempRoom = new Room(roomType, roomStat, roomIt);
-    		rooms.add(tempRoom);
-    		//this.rooms[roomIt].Room(roomType, roomStat, roomIt); 
-    	}
+public class Hotel {
+
+    private final Map<Integer, Room> rooms = new HashMap<>();
+
+    public void addRoom(Room room) {
+        rooms.putIfAbsent(room.roomNumber, room);
     }
-    
-    class Room {
+
+    public void updateRoomInfo(Room room) {
+        rooms.replace(room.roomNumber, room);
+    }
+
+    public List<Room> getRooms() {
+        return new ArrayList<>(rooms.values());
+    }
+
+    public Map<Integer, Room> getRoomsMap() {
+        return rooms;
+    }
+
+    public class Room {
         private RoomType roomType;
         private RoomStatus roomStatus;
         private int roomNumber;
-        
-        public Room()
-        {
-        	this.roomType = RoomType.KING;
-        	this.roomStatus = roomStatus.UNAVAILABLE_DIRTY;
-        	this.roomNumber = 0;
+        private List<Reservation> reservation;
+        private HouseKeeping houseKeeping;
+
+        public Room(RoomType roomType, RoomStatus roomStatus, int roomNumber) {
+            this.roomType = roomType;
+            this.roomStatus = roomStatus;
+            this.roomNumber = roomNumber;
+            this.reservation = new ArrayList<>();
+            houseKeeping = new HouseKeeping("Unknown", this, true,true,true,true,true);
         }
-        public Room(RoomType roomType, RoomStatus roomStat, int roomNum)
+
+        public void addToReservation(Reservation reservation) {
+            this.reservation.add(reservation);
+        }
+
+        public void removeFromReservation(Reservation reservation) {
+            this.reservation.remove(reservation);
+        }
+
+        public void updateReservation(Reservation oldReservation, Reservation newReservation) {
+            reservation.remove(oldReservation);
+            reservation.add(newReservation);
+        }
+
+        public List<Reservation> getReservations() {
+            return reservation;
+        }
+
+        public RoomStatus getRoomStatus() {
+            return roomStatus;
+        }
+        
+        public RoomType getRoomType()
         {
-        	this.roomType = roomType;
-        	this.roomStatus = roomStat;
-        	this.roomNumber = roomNum;
+        	return roomType;
+        }
+
+        public void setRoomStatus(RoomStatus roomStatus) {
+            this.roomStatus = roomStatus;
+        }
+
+        public HouseKeeping getHouseKeeping() {
+            return houseKeeping;
+        }
+
+        public void setHouseKeeping(HouseKeeping houseKeeping) {
+            this.houseKeeping = houseKeeping;
         }
     }
 
-    class Reservation {
+    public class Reservation {
         private Guest guest;
-        //TODO Work with the Date class
-        private String dateMade;
-        private String dateCheckIn;
-        private String dateCheckout;
+        private Date dateMade;
+        private Date dateCheckIn;
+        private Date dateCheckout;
         private double rate;
         private Room room;
         private boolean websiteReservation;
         private double paymentsMade;
+        private boolean isCheckedIn;
+
+        //Date check in and check out should be a string in the form "MM-dd-yyyy"
+        public Reservation(Guest guest, String dateCheckIn, String dateCheckout, double rate, Room room, boolean websiteReservation, double paymentsMade) {
+            try {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy");
+                this.dateCheckIn = simpleDateFormat.parse(dateCheckIn);
+                this.dateCheckout = simpleDateFormat.parse(dateCheckout);
+                this.guest = guest;
+                this.dateMade = new Date();
+                this.rate = rate;
+                this.room = room;
+                this.websiteReservation = websiteReservation;
+                this.paymentsMade = paymentsMade;
+                isCheckedIn = false;
+            } catch (ParseException e) {
+                System.out.println("Failed to create reservation. Please enter date in the correct format");
+            }
+        }
+
+        //Date check in and check out should be a string in the form "MM-dd-yyyy"
+        public Reservation(Guest guest, Date dateCheckIn, Date dateCheckout, double rate, Room room, boolean websiteReservation, double paymentsMade) {
+            this.dateCheckIn = dateCheckIn;
+            this.dateCheckout = dateCheckout;
+            this.guest = guest;
+            this.dateMade = new Date();
+            this.rate = rate;
+            this.room = room;
+            this.websiteReservation = websiteReservation;
+            this.paymentsMade = paymentsMade;
+            isCheckedIn = false;
+        }
+
+        public Date getDateCheckIn() {
+            return dateCheckIn;
+        }
+
+        public Date getDateCheckout() {
+            return dateCheckout;
+        }
+
+        public Guest getGuest() {
+            return guest;
+        }
+
+        public void setGuest(Guest guest) {
+            this.guest = guest;
+        }
+
+        public Date getDateMade() {
+            return dateMade;
+        }
+
+        public void setDateMade(Date dateMade) {
+            this.dateMade = dateMade;
+        }
+
+        public boolean isCheckedIn() {
+            return isCheckedIn;
+        }
+
+        public void setCheckedIn(boolean checkedIn) {
+            isCheckedIn = checkedIn;
+        }
+
+        public Room getRoom() {
+            return room;
+        }
+
+        public double getRate() {
+            return rate;
+        }
+
+        public boolean isWebsiteReservation() {
+            return websiteReservation;
+        }
+
+        public double getPaymentsMade() {
+            return paymentsMade;
+        }
 
         public double getTotalCharge() {
-            //TODO Calculate total charge
             return 0;
         }
 
         public double getBalance() {
             return getTotalCharge() - paymentsMade;
         }
+
+        @Override
+        public String toString() {
+            return guest + ", Check in date: " + Capability3.getStringFromDate(dateCheckIn) + ", Check out date: " + Capability3.getStringFromDate(dateCheckout) + ", Room number: " + room.roomNumber;
+        }
     }
 
-    class HouseKeeping {
+    public class HouseKeeping {
         private String HouseKeeper;
         private Room room;
-        private String bathroom;
+        private boolean bathroom;
         private boolean towels;
         private boolean vacuum;
         private boolean dusting;
         private boolean electronics;
+
+        public HouseKeeping(String houseKeeper, Room room, boolean bathroom, boolean towels, boolean vacuum, boolean dusting, boolean electronics) {
+            HouseKeeper = houseKeeper;
+            this.room = room;
+            this.bathroom = bathroom;
+            this.towels = towels;
+            this.vacuum = vacuum;
+            this.dusting = dusting;
+            this.electronics = electronics;
+        }
+
+        public String getHouseKeeper() {
+            return HouseKeeper;
+        }
+
+        public void setHouseKeeper(String houseKeeper) {
+            HouseKeeper = houseKeeper;
+        }
+
+        public Room getRoom() {
+            return room;
+        }
+
+        public void setRoom(Room room) {
+            this.room = room;
+        }
+
+        public boolean isBathroom() {
+            return bathroom;
+        }
+
+        public void setBathroom(boolean bathroom) {
+            this.bathroom = bathroom;
+        }
+
+        public boolean isTowels() {
+            return towels;
+        }
+
+        public void setTowels(boolean towels) {
+            this.towels = towels;
+        }
+
+        public boolean isVacuum() {
+            return vacuum;
+        }
+
+        public void setVacuum(boolean vacuum) {
+            this.vacuum = vacuum;
+        }
+
+        public boolean isDusting() {
+            return dusting;
+        }
+
+        public void setDusting(boolean dusting) {
+            this.dusting = dusting;
+        }
+
+        public boolean isElectronics() {
+            return electronics;
+        }
+
+        public void setElectronics(boolean electronics) {
+            this.electronics = electronics;
+        }
     }
 
-    class Guest {
+    public class Guest {
         private String firstName;
         private String lastName;
         private String phoneNumber;
@@ -104,19 +268,30 @@ class Hotel {
         private String email;
         private String idNumber;
         private String licensePlate;
+
+        public Guest(String firstName, String lastName, String phoneNumber, String address, String email, String idNumber, String licensePlate) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.phoneNumber = phoneNumber;
+            this.address = address;
+            this.email = email;
+            this.idNumber = idNumber;
+            this.licensePlate = licensePlate;
+        }
+
+        public String getIdNumber() {
+            return idNumber;
+        }
+
+        @Override
+        public String toString() {
+            return "First name: " + firstName + " Last name: " + lastName;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            Guest guest = (Guest) obj;
+            return guest.idNumber.equalsIgnoreCase(idNumber);
+        }
     }
-}
-
-enum  RoomType {
-    KING,
-    DOUBLE_QUEEN,
-    DOUBLE_QUEEN_WITH_KITCHEN,
-    SUITE
-}
-
-enum RoomStatus {
-    AVAILABLE,
-    UNAVAILABLE_OCCUPIED,
-    UNAVAILABLE_DIRTY,
-    UNAVAILABLE_MAINTENANCE
 }

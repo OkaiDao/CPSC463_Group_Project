@@ -7,6 +7,7 @@ public class Main {
 
     private static final int TOTAL_CAPABILITIES = 8;
     private static final Scanner scanner = new Scanner(System.in);
+    private static final Hotel hotel = new Hotel();
 
     public static void main(String[] args) {
         printCapabilitiesOptions();
@@ -39,10 +40,8 @@ public class Main {
     private static void printRoom_Status()
     {
     	int x = 0;
-    	int roomNum = 0;
     	while (x < 100)
-    	{
-    		    			
+    	{  			
     		System.out.println("Room " + (x + 1) + "\n"); 
     		System.out.println("Room Type: " + "\n"); //Add function to pull room type and add to output.
     		System.out.println("Availability: " + "\n"); //Add function to pull room type and add to output.
@@ -105,15 +104,7 @@ public class Main {
     //Capability 3 Reservation list
     //Sijan Rijal
     private static void displayReservations() {
-        System.out.println("Guest First Name: \n" +
-                "Guest Last Name: \n" +
-                "Date Made:\n" +
-                "Date Check-in:\n" +
-                "Date Checkout:\n" +
-                "Room Type:\n" +
-                "Website Reservation Made:\n" +
-                "Rate ($/Day):\n" +
-                "Total Charge:\n");
+
     }
 
     //Capability 4 Housekeeping information
@@ -143,7 +134,7 @@ public class Main {
             "ID#: \n" +
             "Vehicle License Plate: \n");
     }
-    //Capability 6 - Current stay screen showing a guestâ€™s information for their current stay.
+    //Capability 6 - Current stay screen showing a guest’s information for their current stay.
     //Tuan Ngo
     private static void currentGuestInfo() {
     	System.out.println(

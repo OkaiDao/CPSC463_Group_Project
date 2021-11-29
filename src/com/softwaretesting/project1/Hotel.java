@@ -57,6 +57,11 @@ public class Hotel {
         public List<Reservation> getReservations() {
             return reservation;
         }
+        
+        public int getRoomNumber()
+        {
+        	return roomNumber;
+        }
 
         public RoomStatus getRoomStatus() {
             return roomStatus;

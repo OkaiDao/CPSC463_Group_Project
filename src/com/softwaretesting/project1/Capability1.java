@@ -13,9 +13,9 @@ import com.softwaretesting.project1.RoomStatus;
 If the room is Occupied, the Capability 6 display and the User can make any modifications to the information.  
 If the User is checked out in Capability 6, this  turn the room to Unavailable/Dirty.
 If the room is Dirty, the system warn the User that the room is Dirty and ask if they want to turn the status to Available.  
-If they say yes, it  turn the status to Available. If the User chooses ìNoî, no action is taken.
+If they say yes, it  turn the status to Available. If the User chooses ‚ÄúNo‚Äù, no action is taken.
 If the room is in Maintenance, the system warn the User that the room is Maintenance and ask if they want to turn the status to Available. 
-If they say yes, it  turn the status to Available. If the User chooses ìNoî, no action is taken.
+If they say yes, it  turn the status to Available. If the User chooses ‚ÄúNo‚Äù, no action is taken.
  */
 public class Capability1 
 {
@@ -47,10 +47,13 @@ public class Capability1
 					Hotel.Room room = hotel.getRoomsMap().get(choice);
 					if (room.getRoomStatus() != RoomStatus.AVAILABLE)
 					{
-						System.out.println("Room is occupied");
-						//Capability 6 function call
-						//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Needs to be checked for Integration @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-						currentGuestInfo_guest(hotel, guest, choice);
+						if (room.getRoomStatus() == RoomStatus.UNAVAILABLE_OCCUPIED)
+						{
+							System.out.println("Room is occupied");
+							//Capability 6 function call
+							//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Needs to be checked for Integration @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@					
+							currentGuestInfo_guest(hotel, guest, choice);
+						}
 						if (room.getRoomStatus() == RoomStatus.UNAVAILABLE_DIRTY)// If Dirty
 						{
 							System.out.println("Room is dirty, would you like to turn the status to Available? \"Yes\" or \"No\" ");

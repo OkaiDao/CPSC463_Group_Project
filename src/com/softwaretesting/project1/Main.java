@@ -105,13 +105,15 @@ public class Main {
             case 5:
                 showGuestInfo();
                 break;
+//            case 6:
+//            	currentGuestInfo_noguest(hotel.getRooms().get(0));
+//            	currentGuestInfo_reservation(hotel.getRooms().get(0).getReservation().get(0));
+//      	    currentGuestInfo_guest(hotel.new Guest("fname","lname","123456","address","email","id123","license 123"),hotel.getRooms().get(0));
+//            	break;
             case 6:
-            	currentGuestInfo_noguest(hotel.getRooms().get(0));
-            	break;
-            case 7:
             	searchScreen();
             	break;
-            case 8:
+            case 7:
                 showDailyReport();
         }
     }
@@ -335,7 +337,16 @@ public class Main {
     	idNumber = scanner_C.next();
     	System.out.println("\n Enter License Plate: ");
     	licensePlate = scanner_C.next();
-    	Room room_tmp = hotel.getRooms().get(reservation.getRoom().getRoomNumber());
+    	List<Room> Rooms = hotel.getRooms();
+    	Room room_tmp = hotel.new Room();
+    	for(Room element : Rooms) {
+    		if (element != null) {
+    			if(element == reservation.getRoom()) {
+    				room_tmp = element;
+    			}
+    		}
+    	}
+    	
     	Guest guest_tmp =   hotel.new Guest(fName,lName,phoneNumber,address,email,idNumber,licensePlate);
     	System.out.println(
     			"1. Check in\n" +
@@ -507,11 +518,11 @@ public class Main {
                 return "Display housekeeping information";
             case 5:
                 return "show guest information";
+//            case 6:
+//            	return "Show a Guest's information";
             case 6:
-            	return "Show a Guest's information";
-            case 7:
             	return "Search for guests";
-            case 8:
+            case 7:
                 return "show the daily report screen";
             default:
                 return "exit";

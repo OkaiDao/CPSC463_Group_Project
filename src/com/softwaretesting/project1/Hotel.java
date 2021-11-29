@@ -25,7 +25,9 @@ class Hotel {
  
     
     class Room {
+    	public Room() {};
         private RoomType roomType;
+        
         public RoomType getRoomType() {
 			return roomType;
 		}

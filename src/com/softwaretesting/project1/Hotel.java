@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Hotel {
 
-    private Map<Integer, Room> rooms = new HashMap<>();
+    private final Map<Integer, Room> rooms = new HashMap<>();
 
     public void addRoom(Room room) {
         rooms.putIfAbsent(room.roomNumber, room);
@@ -22,17 +22,23 @@ public class Hotel {
         return new ArrayList<>(rooms.values());
     }
 
+    public Map<Integer, Room> getRoomsMap() {
+        return rooms;
+    }
+
     public class Room {
         private RoomType roomType;
         private RoomStatus roomStatus;
         private int roomNumber;
         private List<Reservation> reservation;
+        private HouseKeeping houseKeeping;
 
         public Room(RoomType roomType, RoomStatus roomStatus, int roomNumber) {
             this.roomType = roomType;
             this.roomStatus = roomStatus;
             this.roomNumber = roomNumber;
             this.reservation = new ArrayList<>();
+            houseKeeping = new HouseKeeping("Unknown", this, true,true,true,true,true);
         }
 
         public void addToReservation(Reservation reservation) {
@@ -54,6 +60,18 @@ public class Hotel {
 
         public RoomStatus getRoomStatus() {
             return roomStatus;
+        }
+
+        public void setRoomStatus(RoomStatus roomStatus) {
+            this.roomStatus = roomStatus;
+        }
+
+        public HouseKeeping getHouseKeeping() {
+            return houseKeeping;
+        }
+
+        public void setHouseKeeping(HouseKeeping houseKeeping) {
+            this.houseKeeping = houseKeeping;
         }
     }
 
@@ -161,14 +179,80 @@ public class Hotel {
         }
     }
 
-    class HouseKeeping {
+    public class HouseKeeping {
         private String HouseKeeper;
         private Room room;
-        private String bathroom;
+        private boolean bathroom;
         private boolean towels;
         private boolean vacuum;
         private boolean dusting;
         private boolean electronics;
+
+        public HouseKeeping(String houseKeeper, Room room, boolean bathroom, boolean towels, boolean vacuum, boolean dusting, boolean electronics) {
+            HouseKeeper = houseKeeper;
+            this.room = room;
+            this.bathroom = bathroom;
+            this.towels = towels;
+            this.vacuum = vacuum;
+            this.dusting = dusting;
+            this.electronics = electronics;
+        }
+
+        public String getHouseKeeper() {
+            return HouseKeeper;
+        }
+
+        public void setHouseKeeper(String houseKeeper) {
+            HouseKeeper = houseKeeper;
+        }
+
+        public Room getRoom() {
+            return room;
+        }
+
+        public void setRoom(Room room) {
+            this.room = room;
+        }
+
+        public boolean isBathroom() {
+            return bathroom;
+        }
+
+        public void setBathroom(boolean bathroom) {
+            this.bathroom = bathroom;
+        }
+
+        public boolean isTowels() {
+            return towels;
+        }
+
+        public void setTowels(boolean towels) {
+            this.towels = towels;
+        }
+
+        public boolean isVacuum() {
+            return vacuum;
+        }
+
+        public void setVacuum(boolean vacuum) {
+            this.vacuum = vacuum;
+        }
+
+        public boolean isDusting() {
+            return dusting;
+        }
+
+        public void setDusting(boolean dusting) {
+            this.dusting = dusting;
+        }
+
+        public boolean isElectronics() {
+            return electronics;
+        }
+
+        public void setElectronics(boolean electronics) {
+            this.electronics = electronics;
+        }
     }
 
     public class Guest {

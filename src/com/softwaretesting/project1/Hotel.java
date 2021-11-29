@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-class Hotel {
+public class Hotel {
 
     private Map<Integer,Room> rooms = new HashMap<>();
     private ArrayList<Reservation> guesthistory = new ArrayList<Reservation>();
@@ -24,7 +24,7 @@ class Hotel {
     }
  
     
-    class Room {
+    public class Room {
     	public Room() {};
         private RoomType roomType;
         
@@ -81,7 +81,7 @@ class Hotel {
         }
     }
 
-    class Reservation {
+    public class Reservation {
         public Guest getGuest() {
 			return guest;
 		}
@@ -200,7 +200,7 @@ class Hotel {
         private boolean electronics;
     }
 
-    class Guest {
+    public class Guest {
         public String getFirstName() {
 			return firstName;
 		}
@@ -272,7 +272,7 @@ enum  RoomType {
     SUITE
 }
 
-enum RoomStatus {
+public enum RoomStatus {
     AVAILABLE,
     UNAVAILABLE_OCCUPIED,
     UNAVAILABLE_DIRTY,

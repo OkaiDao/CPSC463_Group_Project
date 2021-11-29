@@ -23,10 +23,12 @@ public class Main {
     	Date date = new Date();
     	Reservation AddReservation = hotel.new Reservation(GuestInfo,"01-01-2001 23:20:11","01-02-2001 08:00:00".toString(),1.0,CreateRoom,false,0); 
         hotel.getRooms().get(0).addToReservation(AddReservation);
+    	AddReservation = hotel.new Reservation(GuestInfo,"01-08-2001 23:20:11","01-10-2001 08:00:00".toString(),1.0,CreateRoom,false,0); 
+    	hotel.getRooms().get(0).addToReservation(AddReservation);
     	printCapabilitiesOptions();
     }
 
-    private static void printCapabilitiesOptions() {
+    public static void printCapabilitiesOptions() {
         int selectedOption = 0;
         while (selectedOption != -1) {
             for (int i = 1; i <= TOTAL_CAPABILITIES; i++) {

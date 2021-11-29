@@ -2,7 +2,6 @@ package com.softwaretesting.project1.capability3;
 
 import com.softwaretesting.project1.Hotel;
 import com.softwaretesting.project1.RoomStatus;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -14,11 +13,11 @@ public class Capability3 {
     /**
      *  Make updates on a reservation - Add, Delete or Update
      * */
-    public static void addDeleteReservation(Scanner scanner, Hotel hotel) {
-        scanner.nextLine();
+    public static void modifyReservation(Scanner scanner, Hotel hotel) {
         System.out.println("Enter 1 to add a reservation");
         System.out.println("Enter 2 to delete a reservation");
         System.out.println("Enter 3 to update a reservation");
+        System.out.println("Enter 4 to display all reservations");
         int selectedOption = scanner.nextInt();
         scanner.nextLine();
         try {
@@ -29,9 +28,11 @@ public class Capability3 {
                 deleteReservation(scanner, hotel);
             } else if (selectedOption == 3) {
                 updateReservation(scanner, hotel);
+            } else if (selectedOption == 4) {
+                displayAllReservation(hotel);
             }
         } catch (ParseException e) {
-
+            System.out.println("Error parsing the date");
         }
     }
 
@@ -39,7 +40,6 @@ public class Capability3 {
      * Add a reservation if there's any availability
      * */
     private static void addReservation(Scanner scanner, Hotel hotel, Hotel.Guest guest) throws ParseException {
-        scanner.nextLine();
         System.out.println("Enter the date for reservation in format(mm-dd-yyyy): ");
         String checkinDate = scanner.nextLine();
         System.out.println("Enter the date for checkout in format(mm-dd-yyyy): ");
@@ -49,7 +49,7 @@ public class Capability3 {
         boolean isRoomFound = false;
         Hotel.Room updateRoom = null;
         for (Hotel.Room room : hotel.getRooms()) {
-            if (canReservationBeAdded(dateCheckIn, dateCheckout, room.getReservations())) {
+            if (room.getReservations().isEmpty() || canReservationBeAdded(dateCheckIn, dateCheckout, room.getReservations())) {
                 isRoomFound = true;
                 double rate = getRate();
                 double total = getRate() * getNumberOfDaysBetweenTwoDates(dateCheckIn, dateCheckout);
@@ -73,11 +73,11 @@ public class Capability3 {
      * Delete a reservation
      * */
     private static void deleteReservation(Scanner scanner, Hotel hotel) throws ParseException {
-        Hotel.Guest guest = getGuestFromInfo(scanner, hotel);
-        scanner.nextLine();
+        System.out.println("Enter your id number: ");
+        String idNumber = scanner.nextLine();
         System.out.println("Enter the date when the reservation was made in the format mm-dd-yyyy: ");
-        Date reservationMadeDate = getDateFromString(scanner.nextLine());
-        Hotel.Reservation findReservation = findReservation(hotel, guest, reservationMadeDate);
+        String reservationMadeDate = scanner.nextLine();
+        Hotel.Reservation findReservation = findReservation(hotel, idNumber, reservationMadeDate);
         if (findReservation != null) {
             Hotel.Room room = findReservation.getRoom();
             room.removeFromReservation(findReservation);
@@ -92,13 +92,10 @@ public class Capability3 {
      * Make some updates on existing reservation
      * */
     private static void updateReservation(Scanner scanner, Hotel hotel) throws ParseException {
-        scanner.nextLine();
         System.out.println("Enter your id number: ");
         String idNumber = scanner.nextLine();
-        scanner.nextLine();
         System.out.println("Enter the date you made made the reservation in the format mm-dd-yyyy: ");
-        Date reservationDate = getDateFromString(scanner.nextLine());
-        scanner.nextLine();
+        String reservationDate = scanner.nextLine();
         Hotel.Reservation reservation = findReservation(hotel, idNumber, reservationDate);
         if (reservation != null) {
             int selectedOption = -1;
@@ -118,7 +115,6 @@ public class Capability3 {
                 if (selectedOption == 1) {
                     Hotel.Guest guest = getGuestFromInfo(scanner, hotel);
                     Hotel.Reservation newReservation = hotel.new Reservation(guest, reservation.getDateCheckIn(), reservation.getDateCheckout(), reservation.getRate(), room, reservation.isWebsiteReservation(), reservation.getPaymentsMade());
-                    newReservation.setGuest(guest);
                     room.updateReservation(reservation, newReservation);
                     hotel.updateRoomInfo(room);
                     reservation = newReservation;
@@ -173,8 +169,16 @@ public class Capability3 {
                     System.out.println("Please select a valid option");
                 }
             }
+        } else {
+            System.out.println("Sorry, couldn't find the reservation");
         }
 
+    }
+
+    private static void displayAllReservation(Hotel hotel) {
+        for (Hotel.Room room : hotel.getRooms()) {
+            room.getReservations().stream().map(reservation -> reservation.getGuest().toString()).forEach(System.out::println);
+        }
     }
 
     /**
@@ -185,7 +189,6 @@ public class Capability3 {
      * Get a guest object from user's input
      * */
     public static Hotel.Guest getGuestFromInfo(Scanner scanner, Hotel hotel) {
-        scanner.nextLine();
         System.out.println("Enter your first name: ");
         String firstName = scanner.nextLine();
         System.out.println("Enter your last name: ");
@@ -200,7 +203,6 @@ public class Capability3 {
         String idNumber = scanner.nextLine();
         System.out.println("Enter your license plate: ");
         String licensePlate = scanner.nextLine();
-        scanner.nextLine();
         return hotel.new Guest(firstName, lastName, phoneNumber, address, email, idNumber, licensePlate);
     }
 
@@ -216,7 +218,7 @@ public class Capability3 {
                         //check in and checkout date between reservation's check in and checkout
                         || dateCheckIn.after(reservation.getDateCheckIn()) && dateCheckout.before(reservation.getDateCheckout())
                         // checkin and checkout date is the same as reservation's check in and checkout date
-                        || dateCheckIn == reservation.getDateCheckIn() && dateCheckout == reservation.getDateCheckout()
+                        || dateCheckIn.equals(reservation.getDateCheckIn()) && dateCheckout.equals(reservation.getDateCheckout())
                         // checkout date is in between reservation's checkin and checkout date
                         || dateCheckout.after(reservation.getDateCheckIn()) && dateCheckout.before(reservation.getDateCheckout())
                 );
@@ -248,30 +250,14 @@ public class Capability3 {
     }
 
     /**
-     * Fina a reservation using guest information and the date the reservation was made
-     * */
-    public static Hotel.Reservation findReservation(Hotel hotel, Hotel.Guest guest, Date reservationMadeDate) {
-        for (Hotel.Room room : hotel.getRooms()) {
-            Optional<Hotel.Reservation> reservationOnRecord = room.getReservations().stream()
-                    .filter(reservation -> reservation.getGuest().equals(guest) && reservation.getDateMade().equals(reservationMadeDate))
-                    .findFirst();
-            if (reservationOnRecord.isPresent()) {
-               return reservationOnRecord.get();
-            }
-        }
-        return null;
-    }
-
-    /**
      * Find a reservation using guest id number and the date the reservation was made
      * */
-    public static Hotel.Reservation findReservation(Hotel hotel, String idNumber, Date reservationMadeDate) {
+    public static Hotel.Reservation findReservation(Hotel hotel, String idNumber, String reservationMadeDate) {
         for (Hotel.Room room : hotel.getRooms()) {
-            Optional<Hotel.Reservation> reservationOnRecord = room.getReservations().stream()
-                    .filter(reservation -> reservation.getGuest().getIdNumber().equalsIgnoreCase(idNumber) && reservation.getDateMade().equals(reservationMadeDate))
-                    .findFirst();
-            if (reservationOnRecord.isPresent()) {
-                return reservationOnRecord.get();
+            for (Hotel.Reservation reservation : room.getReservations()) {
+                if (reservation.getGuest().getIdNumber().equalsIgnoreCase(idNumber) && getStringFromDate(reservation.getDateMade()).equals(reservationMadeDate)) {
+                    return reservation;
+                }
             }
         }
         return null;

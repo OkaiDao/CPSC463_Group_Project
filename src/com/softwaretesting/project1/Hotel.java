@@ -186,12 +186,16 @@ public class Hotel {
         public String getIdNumber() {
             return idNumber;
         }
-    }
-}
 
-enum RoomType {
-    KING,
-    DOUBLE_QUEEN,
-    DOUBLE_QUEEN_WITH_KITCHEN,
-    SUITE
+        @Override
+        public String toString() {
+            return "First name: " + firstName + " Last name: " + lastName;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            Guest guest = (Guest) obj;
+            return guest.idNumber.equalsIgnoreCase(idNumber);
+        }
+    }
 }

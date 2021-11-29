@@ -32,7 +32,7 @@ public class Capability3 {
                 displayAllReservation(hotel);
             }
         } catch (ParseException e) {
-            System.out.println("Error parsing the date");
+            System.out.println("Error parsing date from the input");
         }
     }
 
@@ -40,9 +40,9 @@ public class Capability3 {
      * Add a reservation if there's any availability
      * */
     private static void addReservation(Scanner scanner, Hotel hotel, Hotel.Guest guest) throws ParseException {
-        System.out.println("Enter the date for reservation in format(mm-dd-yyyy): ");
+        System.out.println("Enter the date for check in format(mm-dd-yyyy): ");
         String checkinDate = scanner.nextLine();
-        System.out.println("Enter the date for checkout in format(mm-dd-yyyy): ");
+        System.out.println("Enter the date for check out in format(mm-dd-yyyy): ");
         String checkoutDate = scanner.nextLine();
         Date dateCheckIn = getDateFromString(checkinDate);
         Date dateCheckout = getDateFromString(checkoutDate);
@@ -122,6 +122,8 @@ public class Capability3 {
                 } else if (selectedOption == 2) {
                     System.out.println("Enter new check-in date: ");
                     Date newReservationCheckinDate = getDateFromString(scanner.nextLine());
+                    room.removeFromReservation(reservation);
+                    hotel.updateRoomInfo(room);
                     boolean isReservationMade = false;
                     for (Hotel.Room roomI : hotel.getRooms()) {
                         if (canReservationBeAdded(newReservationCheckinDate, reservation.getDateCheckout(), roomI.getReservations())) {
@@ -138,14 +140,18 @@ public class Capability3 {
                         }
                     }
                     if (!isReservationMade) {
+                        room.addToReservation(reservation);
+                        hotel.updateRoomInfo(room);
                         System.out.println("Couldn't find any available reservation slot. Try changing the check in or check out date");
                     } else {
                         System.out.println("Updated");
                     }
                 } else if (selectedOption == 3) {
-                    System.out.println("Enter new check-in date: ");
+                    System.out.println("Enter new check out date: ");
                     Date newReservationCheckoutDate = getDateFromString(scanner.nextLine());
                     boolean isReservationMade = false;
+                    room.removeFromReservation(reservation);
+                    hotel.updateRoomInfo(room);
                     for (Hotel.Room roomI : hotel.getRooms()) {
                         if (canReservationBeAdded(reservation.getDateCheckIn(), newReservationCheckoutDate, roomI.getReservations())) {
                             double totalCharge = getNumberOfDaysBetweenTwoDates(reservation.getDateCheckIn(), newReservationCheckoutDate) * reservation.getRate();
@@ -161,6 +167,8 @@ public class Capability3 {
                         }
                     }
                     if (!isReservationMade) {
+                        room.addToReservation(reservation);
+                        hotel.updateRoomInfo(room);
                         System.out.println("Couldn't find any available reservation slot. Try changing the check in or check out date");
                     } else {
                         System.out.println("Updated");
@@ -175,15 +183,11 @@ public class Capability3 {
 
     }
 
-    private static void displayAllReservation(Hotel hotel) {
+    public static void displayAllReservation(Hotel hotel) {
         for (Hotel.Room room : hotel.getRooms()) {
-            room.getReservations().stream().map(reservation -> reservation.getGuest().toString()).forEach(System.out::println);
+            room.getReservations().forEach(System.out::println);
         }
     }
-
-    /**
-     * Helper methods
-     * */
 
     /**
      * Get a guest object from user's input

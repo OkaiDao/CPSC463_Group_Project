@@ -1,5 +1,7 @@
 package com.softwaretesting.project1;
 
+import com.softwaretesting.project1.capability3.Capability3;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -151,6 +153,11 @@ public class Hotel {
 
         public double getBalance() {
             return getTotalCharge() - paymentsMade;
+        }
+
+        @Override
+        public String toString() {
+            return guest + ", Check in date: " + Capability3.getStringFromDate(dateCheckIn) + ", Check out date: " + Capability3.getStringFromDate(dateCheckout) + ", Room number: " + room.roomNumber;
         }
     }
 

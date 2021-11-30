@@ -184,6 +184,7 @@ public class Hotel {
         private boolean websiteReservation;
         private double paymentsMade;
 		private boolean isCheckedIn;
+		private double totalCharge = 0;
 
         //Date check in and check out should be a string in the form "MM-dd-yyyy hh:mm:ss"
 		//Date check in and check out should be a string in the form "MM-dd-yyyy"
@@ -218,11 +219,15 @@ public class Hotel {
 		}
 
         public double getTotalCharge() {
-            return 0;
+            return totalCharge;
         }
 
-        public double getBalance() {
-            return getTotalCharge() - paymentsMade;
+		public void setTotalCharge(double totalCharge) {
+			this.totalCharge = totalCharge;
+		}
+
+		public double getBalance() {
+            return totalCharge - paymentsMade;
         }
 
 		public boolean isCheckedIn() {

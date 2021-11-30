@@ -1,9 +1,11 @@
-package com.softwaretesting.project1;
-import java.sql.Date;
+package capability2;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Scanner;
-
 import com.softwaretesting.project1.Hotel;
-import com.softwaretesting.project1.RoomStatus;
+import static cap6.Capability6.currentGuestInfo_noguest;
+import static capability3.Capability3.getDateFromString;
+import static capability3.Capability3.getStringFromDate;
 
 /*Jonathan Dao
  * 
@@ -18,8 +20,7 @@ Once the information is input and saved, a new reservation is added to the list 
  */
 public class Capability2 
 {
-    private static void printReservation_List(Scanner scanner, Hotel hotel) 
-  	{
+    public static void printReservation_List(Scanner scanner, Hotel hotel) throws ParseException {
     	printResPrompt();
     	//Display all reservations
     	printAllRes(scanner, hotel);
@@ -86,10 +87,8 @@ public class Capability2
 			printAllRes(scanner, hotel);
 			printResPrompt();
 			choice = scanner.nextInt();
-			
+			scanner.nextLine();
 		}//EO while
-		System.out.flush();
-  		return;
   	}//EO printReservation_List
     
     private static void printAllRes(Scanner scanner, Hotel hotel)

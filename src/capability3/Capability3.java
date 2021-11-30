@@ -55,7 +55,11 @@ public class Capability3 {
                 isRoomFound = true;
                 double rate = getRate();
                 double total = getRate() * getNumberOfDaysBetweenTwoDates(dateCheckIn, dateCheckout);
-                Hotel.Reservation newReservation = hotel.new Reservation(guest, checkinDate, checkoutDate, rate, room, false, total);
+                System.out.println("What amount would you like to pay upfront: ");
+                double paymentMade = scanner.nextDouble();
+                scanner.nextLine();
+                Hotel.Reservation newReservation = hotel.new Reservation(guest, checkinDate, checkoutDate, rate, room, false, paymentMade);
+                newReservation.setTotalCharge(total);
                 updateRoom = room;
                 updateRoom.addToReservation(newReservation);
             }

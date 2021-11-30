@@ -1,15 +1,12 @@
 package com.softwaretesting.project1;
 
+import java.text.ParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.Date;
 import capability1.Capability1;
 import capability2.Capability2;
 import capability3.Capability3;
 import capability4.Capability4;
-import com.softwaretesting.project1.Hotel.Guest;
-import com.softwaretesting.project1.Hotel.Reservation;
-import com.softwaretesting.project1.Hotel.Room;
 import cap7.cap7;
 
 public class Main {
@@ -46,10 +43,18 @@ public class Main {
     private static void performOperation(int selectedOption) {
         switch (selectedOption) {
         	case 1:
-                Capability1.printRoom_Status(hotel, scanner);
+                try {
+                    Capability1.printRoom_Status(hotel, scanner);
+                } catch (ParseException e) {
+                    System.out.println("Error formatting the date from the input");
+                }
         		break;
         	case 2:
-        		Capability2.printReservation_List(scanner, hotel);
+        		try {
+                    Capability2.printReservation_List(scanner, hotel);
+                } catch (ParseException e) {
+                    System.out.println("Error formatting the date from the input");
+                }
         		break;
             case 3:
                 Capability3.modifyReservation(scanner, hotel);

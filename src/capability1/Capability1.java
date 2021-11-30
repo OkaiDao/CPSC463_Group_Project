@@ -1,9 +1,13 @@
-package com.softwaretesting.project1;
-import java.sql.Date;
+package capability1;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
-
 import com.softwaretesting.project1.Hotel;
 import com.softwaretesting.project1.RoomStatus;
+import static cap6.Capability6.currentGuestInfo_guest;
+import static cap6.Capability6.currentGuestInfo_noguest;
+import static capability3.Capability3.*;
 
 /*
  * Jonathan Dao
@@ -20,8 +24,7 @@ If they say yes, it  turn the status to Available. If the User chooses “No”,
  */
 public class Capability1 
 {
-	public static void printRoom_Status(Hotel hotel, Scanner scanner)
-	{
+	public static void printRoom_Status(Hotel hotel, Scanner scanner) throws ParseException {
 		System.out.println("Please Enter today's date. mm-dd-yyyy");
 		String dateIn = scanner.nextLine();
 		Date dateInputed = getDateFromString(dateIn);
@@ -125,8 +128,8 @@ public class Capability1
 	
 	public static void printRoomStats(Hotel hotel)
 	{
-    	List<Room> Rooms = hotel.getRooms();
-    	for (room element: Rooms)
+    	List<Hotel.Room> Rooms = hotel.getRooms();
+    	for (Hotel.Room element: Rooms)
     	{
     		System.out.println("Room: " + element.getRoomNumber() + "\n");
     		System.out.println("Room Type: " + element.getRoomType() + "\n");

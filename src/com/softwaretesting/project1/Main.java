@@ -134,7 +134,7 @@ public class Main {
             "ID#: \n" +
             "Vehicle License Plate: \n");
     }
-    //Capability 6 - Current stay screen showing a guest’s information for their current stay.
+    //Capability 6 - Current stay screen showing a guestï¿½s information for their current stay.
     //Tuan Ngo
     private static void currentGuestInfo() {
     	System.out.println(

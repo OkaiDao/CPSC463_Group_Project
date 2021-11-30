@@ -2,18 +2,30 @@ package com.softwaretesting.project1;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.Date;
+import com.softwaretesting.project1.Hotel.Guest;
+import com.softwaretesting.project1.Hotel.Reservation;
+import com.softwaretesting.project1.Hotel.Room;
+import cap7.cap7;
 
 public class Main {
 
     private static final int TOTAL_CAPABILITIES = 8;
     private static final Scanner scanner = new Scanner(System.in);
     private static Hotel hotel = new Hotel();
-
     public static void main(String[] args) {
-        printCapabilitiesOptions();
+    	Room CreateRoom = hotel.new Room(RoomType.KING,RoomStatus.AVAILABLE,101);
+    	hotel.addRoom(CreateRoom);
+    	Guest GuestInfo = hotel.new Guest("fname","lname","123456","address","email","id123","license 123");
+    	Date date = new Date();
+    	Reservation AddReservation = hotel.new Reservation(GuestInfo,"01-01-2001 23:20:11","01-02-2001 08:00:00".toString(),1.0,CreateRoom,false,0); 
+        hotel.getRooms().get(0).addToReservation(AddReservation);
+    	AddReservation = hotel.new Reservation(GuestInfo,"01-08-2001 23:20:11","01-10-2001 08:00:00".toString(),1.0,CreateRoom,false,0); 
+    	hotel.getRooms().get(0).addToReservation(AddReservation);
+    	printCapabilitiesOptions();
     }
 
-    private static void printCapabilitiesOptions() {
+    public static void printCapabilitiesOptions() {
         int selectedOption = 0;
         while (selectedOption != -1) {
             for (int i = 1; i <= TOTAL_CAPABILITIES; i++) {
@@ -90,16 +102,8 @@ public class Main {
                 displayHousekeepingInformation();
                 break;
             case 5:
-                showGuestInfo();
+                searchScreen();
                 break;
-            case 6:
-            	currentGuestInfo();
-            	break;
-            case 7:
-            	searchScreen();
-            	break;
-            case 8:
-                showDailyReport();
         }
     }
 
@@ -131,58 +135,11 @@ public class Main {
                 "Dusting:\n" +
                 "Electronics:\n");
     }
-    
-    //Capability 5 - A guest profile screen to show guest information
-    //Christopher Ordinario
-    private static void showGuestInfo() {
-        System.out.println("First Name: \n" +
-            "Last Name: \n" +
-            "Phone: \n" +
-            "Address: \n" + 
-            "E-mail: \n" +
-            "State: \n" +
-            "ID#: \n" +
-            "Vehicle License Plate: \n");
-    }
-    //Capability 6 - Current stay screen showing a guest’s information for their current stay.
-    //Tuan Ngo
-    private static void currentGuestInfo() {
-    	System.out.println(
-    			"Guest Name: \n" +
-                "Date Check-in:\n" +
-                "Time Check In:\n" +
-                "Expected Checkout Date:\n" +
-                "Exptected Check Out Time:\n" +
-                "Room Type:\n" +
-                "Room Number:\n" +
-                "Rate ($/Day):\n" +
-                "Payment Made:\n" +
-                "Balance:\n" +
-                "Total Charge:\n");
-    }
+
     //Capability 7: A search screen to search for guests
     //Tuan Ngo
     private static void searchScreen() {
-    	System.out.println(
-    			"1. Search By Guest First Name\n" +
-                "2. Search By Guest Last Name:\n" +
-                "3. Search By Room Number:\n" +
-                "4. Search By Phone Number:\n" +
-                "5. Search By Street Address:\n" +
-                "6. Search By Date Check In :\n" +
-                "7. Search by Date Check Out:\n"
-    	);
-    }
-    //Capability 8 - A daily report screen
-    //Christopher Ordinario
-    private static void showDailyReport(){
-        System.out.println("Rooms rented today: \n" +
-            "Room Number: \n" +
-            "Guest Name: \n" +
-            "Date In: \n" +
-            "Date Out: \n" +
-            "Amount Paid: \n" +
-            "Total Amount Paid For All Rooms: \n");
+		cap7.searchScreen(hotel);
     }
 
     private static String getCapabilityOption(int option) {
@@ -197,11 +154,11 @@ public class Main {
                 return "Display housekeeping information";
             case 5:
                 return "show guest information";
+//            case 6:
+//            	return "Show a Guest's information";
             case 6:
-            	return "Show a Guest's information";
-            case 7:
             	return "Search for guests";
-            case 8:
+            case 7:
                 return "show the daily report screen";
             default:
                 return "exit";

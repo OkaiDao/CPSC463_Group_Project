@@ -18,15 +18,8 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static Hotel hotel = new Hotel();
     public static void main(String[] args) {
-    	Room CreateRoom = hotel.new Room(RoomType.KING,RoomStatus.AVAILABLE,101);
-    	hotel.addRoom(CreateRoom);
-    	Guest GuestInfo = hotel.new Guest("fname","lname","123456","address","email","id123","license 123");
-    	Date date = new Date();
-    	Reservation AddReservation = hotel.new Reservation(GuestInfo,"01-01-2001 23:20:11","01-02-2001 08:00:00".toString(),1.0,CreateRoom,false,0); 
-        hotel.getRooms().get(0).addToReservation(AddReservation);
-    	AddReservation = hotel.new Reservation(GuestInfo,"01-08-2001 23:20:11","01-10-2001 08:00:00".toString(),1.0,CreateRoom,false,0); 
-    	hotel.getRooms().get(0).addToReservation(AddReservation);
-    	printCapabilitiesOptions();
+        createRooms(hotel);
+    	printCapabilitiesOptions();  
     }
 
     public static void printCapabilitiesOptions() {
@@ -89,5 +82,12 @@ public class Main {
 
     private static void printErrorMessage() {
         System.out.println("Please enter a valid number\n");
+    }
+    
+    private static void createRooms(Hotel hotel) {
+    	for(int i = 0 ; i < 21 ; i++) {
+            Hotel.Room fakeroom = hotel.new Room(RoomType.values()[i%4], RoomStatus.values()[i%4],i+100);
+            hotel.addRoom(fakeroom);
+        }
     }
 }

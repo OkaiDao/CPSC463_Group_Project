@@ -28,7 +28,7 @@ public class Capability2
 		
 		while (choice != 0)
 		{
-			if (choice < 0 || choice > 100)
+			if (choice < 0 || choice > 20)
 			{
 				System.out.println("Invalid Room" + "\n");
 			}
@@ -42,7 +42,6 @@ public class Capability2
 					//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Needs to be checked for Integration @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 					System.out.println("Please Enter the reservation date. mm-dd-yyyy");
 					String dateIn = scanner.nextLine();
-					scanner.nextLine();
 					Date dateInputed = getDateFromString(dateIn);
 					boolean found = false;
 					for (Hotel.Reservation r: room.getReservations())
@@ -76,7 +75,6 @@ public class Capability2
 	        		}
 	        		System.out.println("Would you like to create a new reservation? Yes or No");
 	        		String prompt = scanner.nextLine();
-	        		scanner.nextLine();
 	        		if (prompt == "Yes")
 	        		{
 	        			//Capability 6 function call

@@ -24,14 +24,11 @@ public class Capability1
 	{
 		System.out.println("Please Enter today's date. mm-dd-yyyy");
 		String dateIn = scanner.nextLine();
-		scanner.nextLine();
 		Date dateInputed = getDateFromString(dateIn);
 		printRoomStatPrompt();
 		String prompt = scanner.nextLine();
-		scanner.nextLine();
-		
 
-		if (prompt == "rooms")
+		if (prompt.equals("rooms"))
 		{
 			//Display Rooms
 			printRoomStats(hotel);
@@ -43,7 +40,7 @@ public class Capability1
 			
 			while(choice != 0)
 			{
-				if (choice < 0 || choice > 100)
+				if (choice < 0 || choice > 20)
 				{
 					System.out.println("Invalid Room" + "\n");
 				}
@@ -106,7 +103,7 @@ public class Capability1
 			return;
 			
 		}
-		else if (prompt == "return")
+		else if (prompt.equals("return"))
 		{
 			System.out.flush();
 			return;
@@ -128,16 +125,12 @@ public class Capability1
 	
 	public static void printRoomStats(Hotel hotel)
 	{
-    	int x = 0;
-    	Hotel.Room room;
-    	while (x < 100)
+    	List<Room> Rooms = hotel.getRooms();
+    	for (room element: Rooms)
     	{
-    		room = hotel.getRoomsMap().get(x);
-    		
-    		System.out.println("Room " + (x + 1) + "\n"); 
-    		System.out.println("Room Type: " + room.getRoomType() + "\n");
-    		System.out.println("Availability: " + room.getRoomStatus() + "\n");
-    		x = x+1;
+    		System.out.println("Room: " + element.getRoomNumber() + "\n");
+    		System.out.println("Room Type: " + element.getRoomType() + "\n");
+    		System.out.println("Availability: " + element.getRoomStatus() + "\n");
     	}
 	}
 

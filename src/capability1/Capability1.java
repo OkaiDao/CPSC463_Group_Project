@@ -26,7 +26,6 @@ public class Capability1
     {
         printRoomStatPrompt();
         String prompt = scanner.nextLine();
-        scanner.nextLine();
 
         if (prompt == "rooms")
         {

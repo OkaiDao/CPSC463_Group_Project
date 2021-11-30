@@ -47,7 +47,6 @@ public class Main {
             } catch (InputMismatchException exception) {
                 printErrorMessage();
             }
-            scanner.nextLine();
         }
     }
 

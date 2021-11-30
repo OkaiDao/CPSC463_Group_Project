@@ -91,7 +91,7 @@ public class Capability1
 					else
 					{
 						//Capability 6 function call
-				
+						currentGuestInfo_noguest(hotel, room);
 					}
 				}//EO else
 				System.out.flush();

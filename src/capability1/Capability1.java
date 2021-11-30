@@ -40,7 +40,7 @@ public class Capability1
 			
 			while(choice != 0)
 			{
-				if (choice < 0 || choice > 100)
+				if (choice < 0 || choice > 20)
 				{
 					System.out.println("Invalid Room" + "\n");
 				}

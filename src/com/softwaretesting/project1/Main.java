@@ -3,7 +3,6 @@ package com.softwaretesting.project1;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Date;
-
 import capability1.Capability1;
 import capability2.Capability2;
 import capability3.Capability3;
@@ -39,6 +38,7 @@ public class Main {
             System.out.println("Enter " + -1 + " " + getCapabilityOption(-1));
             try {
                 selectedOption = scanner.nextInt();
+                scanner.nextLine();
                 if (selectedOption!=-1 && (selectedOption < 1 || selectedOption > TOTAL_CAPABILITIES)){
                     printErrorMessage();
                 } else {

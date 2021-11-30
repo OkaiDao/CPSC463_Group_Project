@@ -1,5 +1,7 @@
 package com.softwaretesting.project1;
 
+import capability3.Capability3;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -230,6 +232,11 @@ public class Hotel {
 		public void setCheckedIn(boolean checkedIn) {
 			isCheckedIn = checkedIn;
 		}
+
+		@Override
+		public String toString() {
+			return guest + ", Check in date: " + Capability3.getStringFromDate(dateCheckIn) + ", Check out date: " + Capability3.getStringFromDate(dateCheckout) + ", Room number: " + room.roomNumber;
+		}
 	}
 
     public class HouseKeeping {
@@ -368,6 +375,17 @@ public class Hotel {
 			this.email = email;
 			this.idNumber = idNumber;
 			this.licensePlate = licensePlate;
+		}
+
+		@Override
+		public String toString() {
+			return "First name: " + firstName + " Last name: " + lastName;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			Guest guest = (Guest) obj;
+			return guest.idNumber.equalsIgnoreCase(idNumber);
 		}
     }
 

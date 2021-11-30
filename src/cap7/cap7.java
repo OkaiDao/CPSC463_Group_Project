@@ -12,16 +12,8 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 public class cap7 {
+
     public static void searchScreen(Hotel hotel) {
-//    	System.out.println(
-//    			"1. Search By Guest First Name\n" +
-//                "2. Search By Guest Last Name:\n" +
-//                "3. Search By Room Number:\n" +
-//                "4. Search By Phone Number:\n" +
-//                "5. Search By Street Address:\n" +
-//                "6. Search By Date Check In :\n" +
-//                "7. Search by Date Check Out:\n"
-//    	);
     	System.out.println(
     		"1. Search for guest\n" +
     		"2. Main menu\n"

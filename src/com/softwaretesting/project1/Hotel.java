@@ -264,17 +264,3 @@ public class Hotel {
     }
 
 }
-
-enum  RoomType {
-    KING,
-    DOUBLE_QUEEN,
-    DOUBLE_QUEEN_WITH_KITCHEN,
-    SUITE
-}
-
-public enum RoomStatus {
-    AVAILABLE,
-    UNAVAILABLE_OCCUPIED,
-    UNAVAILABLE_DIRTY,
-    UNAVAILABLE_MAINTENANCE
-}

@@ -3,6 +3,11 @@ package com.softwaretesting.project1;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Date;
+
+import capability1.Capability1;
+import capability2.Capability2;
+import capability3.Capability3;
+import capability4.Capability4;
 import com.softwaretesting.project1.Hotel.Guest;
 import com.softwaretesting.project1.Hotel.Reservation;
 import com.softwaretesting.project1.Hotel.Room;
@@ -10,7 +15,7 @@ import cap7.cap7;
 
 public class Main {
 
-    private static final int TOTAL_CAPABILITIES = 8;
+    private static final int TOTAL_CAPABILITIES = 5;
     private static final Scanner scanner = new Scanner(System.in);
     private static Hotel hotel = new Hotel();
     public static void main(String[] args) {
@@ -45,121 +50,39 @@ public class Main {
             scanner.nextLine();
         }
     }
-    
-    //Capbility 1 Room List
-    //Jonathan Dao
-    //Note: List is vertical from 1-100 due to consle app implementation
-    private static void printRoom_Status()
-    {
-    	int x = 0;
-    	int roomNum = 0;
-    	while (x < 100)
-    	{
-    		    			
-    		System.out.println("Room " + (x + 1) + "\n"); 
-    		System.out.println("Room Type: " + "\n"); //Add function to pull room type and add to output.
-    		System.out.println("Availability: " + "\n"); //Add function to pull room type and add to output.
-    		x = x+1;
-    	}
-    		
-    }
-    
-    //Capability 2 Reservation List
-    //Jonathan Dao
-    private static void printReservation_List() 
-  	{
-  		int counter = 1;
-  		while (counter < 100)
-  		{
-  			System.out.println("Room " + counter + "			");
-  			int day = 1;
-  			while (day < 7)
-  			{
-  				System.out.println("Day " + day );
-  				//Logic for finding if there is an existing guest
-  			//If there is a guest pull name and output
-  				day = day + 1;
-
-  			}
-  			counter = counter + 1;
-  		}
-  		System.out.println("\n");
-  	
-  	}
 
     private static void performOperation(int selectedOption) {
         switch (selectedOption) {
-        	case 1: 
-        		printRoom_Status();
+        	case 1:
+                Capability1.printRoom_Status(hotel, scanner);
         		break;
         	case 2:
-        		printReservation_List();
+        		Capability2.printReservation_List(scanner, hotel);
         		break;
             case 3:
-                displayReservations();
+                Capability3.modifyReservation(scanner, hotel);
                 break;
             case 4:
-                displayHousekeepingInformation();
+                Capability4.manageHouseKeeping(hotel, scanner);
                 break;
             case 5:
-                searchScreen();
+                cap7.searchScreen(hotel);
                 break;
         }
-    }
-
-    //Capability 3 Reservation list
-    //Sijan Rijal
-    private static void displayReservations() {
-        System.out.println("Guest First Name: \n" +
-                "Guest Last Name: \n" +
-                "Date Made:\n" +
-                "Date Check-in:\n" +
-                "Date Checkout:\n" +
-                "Room Type:\n" +
-                "Website Reservation Made:\n" +
-                "Rate ($/Day):\n" +
-                "Total Charge:\n");
-    }
-
-    //Capability 4 Housekeeping information
-    //Sijan Rijal
-    private static void displayHousekeepingInformation() {
-        System.out.println("Housekeep Name:\n" +
-                "Room number:\n" +
-                "Type:\n" +
-                "Status:\n" +
-                "Bathroom:\n" +
-                "Towels:\n" +
-                "Bed Sheets:\n" +
-                "Vacuum:\n" +
-                "Dusting:\n" +
-                "Electronics:\n");
-    }
-
-    //Capability 7: A search screen to search for guests
-    //Tuan Ngo
-    private static void searchScreen() {
-		cap7.searchScreen(hotel);
     }
 
     private static String getCapabilityOption(int option) {
         switch (option) {
         	case 1:
-        		return "Show list of all rooms.";
+        		return "Show list of all rooms and their status";
         	case 2:
-        		return "Show list of all rooms with their reserveations for the next 7 days.";
+        		return "Show list of all rooms with their reservations for the next 7 days.";
             case 3:
-                return "Display a list of all reservations currently in the system";
+                return "Select to add or update or delete a reservation";
             case 4:
-                return "Display housekeeping information";
+                return "Update housekeeping information for a room";
             case 5:
-                return "show guest information";
-//            case 6:
-//            	return "Show a Guest's information";
-            case 6:
             	return "Search for guests";
-            case 7:
-                return "show the daily report screen";
             default:
                 return "exit";
         }

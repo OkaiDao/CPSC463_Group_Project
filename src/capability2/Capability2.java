@@ -2,8 +2,7 @@ package capability2;
 import java.util.Scanner;
 
 import com.softwaretesting.project1.Hotel;
-import com.softwaretesting.project1.RoomStatus;
-
+import static cap6.Capability6.currentGuestInfo_noguest;
 /*Jonathan Dao
  *
  *

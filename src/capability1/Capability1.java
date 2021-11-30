@@ -4,6 +4,9 @@ import java.util.Scanner;
 import com.softwaretesting.project1.Hotel;
 import com.softwaretesting.project1.RoomStatus;
 
+import static cap6.Capability6.currentGuestInfo_guest;
+import static cap6.Capability6.currentGuestInfo_noguest;
+
 /*
  * Jonathan Dao
  *
@@ -52,8 +55,13 @@ public class Capability1
                             System.out.println("Room is occupied");
                             //Capability 6 function call
                             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Needs to be checked for Integration @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                            room.
-                                    currentGuestInfo_guest(hotel, guest, room);
+                            Hotel.Guest guest = null;
+                            for (Hotel.Reservation r: room.getReservations()) {
+                                if (r.isCheckedIn()) {
+                                    guest = r.getGuest();
+                                }
+                            }
+                            currentGuestInfo_guest(hotel, guest, room);
                         }
                         if (room.getRoomStatus() == RoomStatus.UNAVAILABLE_DIRTY)// If Dirty
                         {

@@ -6,10 +6,8 @@ import com.softwaretesting.project1.Hotel.Room;
 import com.softwaretesting.project1.Hotel.Reservation;
 import com.softwaretesting.project1.Hotel.Guest;
 import com.softwaretesting.project1.Main;
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 public class Capability6 {
 
@@ -114,7 +112,7 @@ public class Capability6 {
 
 
     public static void currentGuestInfo_guest(Hotel hotel,Guest guest,Room room) {
-    	List<Reservation> reservation_tmp = room.getReservation();
+    	List<Reservation> reservation_tmp = room.getReservations();
     	Reservation currentReservation_tmp = null;
     	for ( Reservation element : reservation_tmp) {
     		if(element.getGuest() == guest) {
@@ -184,7 +182,7 @@ public class Capability6 {
     	System.out.println("\n Enter License Plate: ");
     	licensePlate = scanner_C.next();
     	List<Room> Rooms = hotel.getRooms();
-    	Room room_tmp = hotel.new Room();
+    	Room room_tmp = null;
     	for(Room element : Rooms) {
     		if (element != null) {
     			if(element == reservation.getRoom()) {
@@ -192,44 +190,45 @@ public class Capability6 {
     			}
     		}
     	}
-    	
-    	Guest guest_tmp =   hotel.new Guest(fName,lName,phoneNumber,address,email,idNumber,licensePlate);
-    	System.out.println(
-    			"1. Check in\n" +
-            	"2. Guest's Profile\n" +
-            	"3. Back to Main Menu\n"
-    	);
-    	scanner_C = new Scanner(System.in);
-    	int option = scanner_C.nextInt();
-    	while(option > 3 || option <1 ) {
-    		System.out.println(
-        			"1. Check in\n" +
-        			"2. Guest's Profile\n" +
-        			"3. Back to Main Menu\n"
-        	);
-    	}
-    	switch(option) {
-		case 1:
-			System.out.println("Checked in");
-	    	printCurrentGuestInfo(guest_tmp,room_tmp,reservation);
-			room_tmp.setRoomStatus(RoomStatus.UNAVAILABLE_OCCUPIED);
-			hotel.updateRoomInfo(room_tmp);
-			System.out.println("1. Enter 1 to back to Main Menu");
-	    	option = scanner_C.nextInt();
-	    	while(option !=1) {
-	    		System.out.println("1. Enter 1 to back to Main Menu");
-		    	option = scanner_C.nextInt();
-	    	}
-			Main.printCapabilitiesOptions();
-			break;
-		case 2:
-			//call function cap 5
-			//showGuestInfo();
-			break;
-		case 3:
-			Main.printCapabilitiesOptions();
-			break;
-    	}
+		if (room_tmp!=null) {
+			Guest guest_tmp =   hotel.new Guest(fName,lName,phoneNumber,address,email,idNumber,licensePlate);
+			System.out.println(
+					"1. Check in\n" +
+							"2. Guest's Profile\n" +
+							"3. Back to Main Menu\n"
+			);
+			scanner_C = new Scanner(System.in);
+			int option = scanner_C.nextInt();
+			while(option > 3 || option <1 ) {
+				System.out.println(
+						"1. Check in\n" +
+								"2. Guest's Profile\n" +
+								"3. Back to Main Menu\n"
+				);
+			}
+			switch(option) {
+				case 1:
+					System.out.println("Checked in");
+					printCurrentGuestInfo(guest_tmp,room_tmp,reservation);
+					room_tmp.setRoomStatus(RoomStatus.UNAVAILABLE_OCCUPIED);
+					hotel.updateRoomInfo(room_tmp);
+					System.out.println("1. Enter 1 to back to Main Menu");
+					option = scanner_C.nextInt();
+					while(option !=1) {
+						System.out.println("1. Enter 1 to back to Main Menu");
+						option = scanner_C.nextInt();
+					}
+					Main.printCapabilitiesOptions();
+					break;
+				case 2:
+					//call function cap 5
+					//showGuestInfo();
+					break;
+				case 3:
+					Main.printCapabilitiesOptions();
+					break;
+			}
+		}
     }
 	
 	

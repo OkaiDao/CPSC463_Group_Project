@@ -22,13 +22,25 @@ public class Hotel {
     public ArrayList<Reservation> getGuestHistory(){
     	return new ArrayList<>(guesthistory);
     }
+
+	public Map<Integer, Room> getRoomsMap() {
+		return rooms;
+	}
  
     
     public class Room {
-    	public Room() {};
         private RoomType roomType;
-        
-        public RoomType getRoomType() {
+		private HouseKeeping houseKeeping;
+
+		public HouseKeeping getHouseKeeping() {
+			return houseKeeping;
+		}
+
+		public void setHouseKeeping(HouseKeeping houseKeeping) {
+			this.houseKeeping = houseKeeping;
+		}
+
+		public RoomType getRoomType() {
 			return roomType;
 		}
 
@@ -56,7 +68,7 @@ public class Hotel {
 
 		private List<Reservation> reservation = new ArrayList<Reservation>();
 
-        public List<Reservation> getReservation() {
+        public List<Reservation> getReservations() {
 			return reservation;
 		}
 
@@ -69,12 +81,18 @@ public class Hotel {
             this.roomStatus = roomStatus;
             this.roomNumber = roomNumber;
             this.reservation = new ArrayList<>();
+			houseKeeping = new HouseKeeping("Unknown", this, true,true,true,true,true);
         }
 
         public void addToReservation(Reservation reservation) {
             this.reservation.add(reservation);
             guesthistory.add(reservation);
         }
+
+		public void updateReservation(Reservation oldReservation, Reservation newReservation) {
+			reservation.remove(oldReservation);
+			reservation.add(newReservation);
+		}
 
         public void removeFromReservation(Reservation reservation) {
             this.reservation.remove(reservation);
@@ -163,23 +181,39 @@ public class Hotel {
         private Room room;
         private boolean websiteReservation;
         private double paymentsMade;
+		private boolean isCheckedIn;
 
         //Date check in and check out should be a string in the form "MM-dd-yyyy hh:mm:ss"
-        public Reservation(Guest guest, String dateCheckIn, String dateCheckout, double rate, Room room, boolean websiteReservation, double paymentsMade) {
-            try {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
-                this.dateCheckIn = simpleDateFormat.parse(dateCheckIn);
-                this.dateCheckout = simpleDateFormat.parse(dateCheckout);
-                this.guest = guest;
-                this.dateMade = new Date();
-                this.rate = rate;
-                this.room = room;
-                this.websiteReservation = websiteReservation;
-                this.paymentsMade = paymentsMade;
-            } catch (ParseException e) {
-                System.out.println("Failed to create reservation. Please enter date in the correct format");
-            }
-        }
+		//Date check in and check out should be a string in the form "MM-dd-yyyy"
+		public Reservation(Guest guest, String dateCheckIn, String dateCheckout, double rate, Room room, boolean websiteReservation, double paymentsMade) {
+			try {
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy");
+				this.dateCheckIn = simpleDateFormat.parse(dateCheckIn);
+				this.dateCheckout = simpleDateFormat.parse(dateCheckout);
+				this.guest = guest;
+				this.dateMade = new Date();
+				this.rate = rate;
+				this.room = room;
+				this.websiteReservation = websiteReservation;
+				this.paymentsMade = paymentsMade;
+				isCheckedIn = false;
+			} catch (ParseException e) {
+				System.out.println("Failed to create reservation. Please enter date in the correct format");
+			}
+		}
+
+		//Date check in and check out should be a string in the form "MM-dd-yyyy"
+		public Reservation(Guest guest, Date dateCheckIn, Date dateCheckout, double rate, Room room, boolean websiteReservation, double paymentsMade) {
+			this.dateCheckIn = dateCheckIn;
+			this.dateCheckout = dateCheckout;
+			this.guest = guest;
+			this.dateMade = new Date();
+			this.rate = rate;
+			this.room = room;
+			this.websiteReservation = websiteReservation;
+			this.paymentsMade = paymentsMade;
+			isCheckedIn = false;
+		}
 
         public double getTotalCharge() {
             return 0;
@@ -188,17 +222,91 @@ public class Hotel {
         public double getBalance() {
             return getTotalCharge() - paymentsMade;
         }
-    }
 
-    class HouseKeeping {
+		public boolean isCheckedIn() {
+			return isCheckedIn;
+		}
+
+		public void setCheckedIn(boolean checkedIn) {
+			isCheckedIn = checkedIn;
+		}
+	}
+
+    public class HouseKeeping {
         private String HouseKeeper;
         private Room room;
-        private String bathroom;
+        private boolean bathroom;
         private boolean towels;
         private boolean vacuum;
         private boolean dusting;
         private boolean electronics;
-    }
+
+		public HouseKeeping(String houseKeeper, Room room, boolean bathroom, boolean towels, boolean vacuum, boolean dusting, boolean electronics) {
+			HouseKeeper = houseKeeper;
+			this.room = room;
+			this.bathroom = bathroom;
+			this.towels = towels;
+			this.vacuum = vacuum;
+			this.dusting = dusting;
+			this.electronics = electronics;
+		}
+
+		public String getHouseKeeper() {
+			return HouseKeeper;
+		}
+
+		public void setHouseKeeper(String houseKeeper) {
+			HouseKeeper = houseKeeper;
+		}
+
+		public Room getRoom() {
+			return room;
+		}
+
+		public void setRoom(Room room) {
+			this.room = room;
+		}
+
+		public boolean isBathroom() {
+			return bathroom;
+		}
+
+		public void setBathroom(boolean bathroom) {
+			this.bathroom = bathroom;
+		}
+
+		public boolean isTowels() {
+			return towels;
+		}
+
+		public void setTowels(boolean towels) {
+			this.towels = towels;
+		}
+
+		public boolean isVacuum() {
+			return vacuum;
+		}
+
+		public void setVacuum(boolean vacuum) {
+			this.vacuum = vacuum;
+		}
+
+		public boolean isDusting() {
+			return dusting;
+		}
+
+		public void setDusting(boolean dusting) {
+			this.dusting = dusting;
+		}
+
+		public boolean isElectronics() {
+			return electronics;
+		}
+
+		public void setElectronics(boolean electronics) {
+			this.electronics = electronics;
+		}
+	}
 
     public class Guest {
         public String getFirstName() {
